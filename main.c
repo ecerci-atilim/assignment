@@ -27,10 +27,10 @@ int main (void)
      fgets(dummy, DUMMY_SIZE, fid);
      fclose(fid);
      fileIDtemp = getLength(dummy);
-     printf("%d\n", fileIDtemp);
-     char *t;
+     printf("%d: ", fileIDtemp);
+     char *t = malloc(2);
      getStr(dummy, fileIDtemp, &t);
-     printf("%s.\n\n", t);
+     printf("%s\n", t);
 
 
      struct dirent *entry;     
@@ -39,17 +39,16 @@ int main (void)
           while ((entry = readdir (dirptr)) != NULL){
                fname = entry->d_name;
                if(fname[0] != 46){
-                    printf("Processing %s, file #%d\n", fname, fcnt);
+                    //printf("Processing %s, file #%d\n", fname, fcnt);
                     // Processing
                     fcnt++;
                }
           }
                
-     (void) closedir (dirptr);
+     (void) closedir(dirptr);
      return 0;
      }
      else{
-          perror ("Couldn't open the directory");
           return -1;
      }
 }
@@ -110,14 +109,13 @@ int getLength(char strin[]){
 
 void getStr(char strin[], int buflen, char **bufout){
      int ltloc = 0, i, nlloc = 0, sc = 0;
-     char buftemp[buflen];
+     char *buftemp = malloc(buflen*sizeof(char));
      for(i = 0; i < strlen(strin); i++){
           if(strin[i] == 9)
-               ltloc = i;
+               ltloc = i+1;
           else if(strin[i] == 10)
                nlloc = i;
      }
-     printf("%d, %d\n", ltloc, nlloc);
      for(i = ltloc; i < nlloc; i++){
           buftemp[sc] = strin[i];
           sc++;
