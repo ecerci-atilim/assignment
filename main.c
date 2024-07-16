@@ -24,16 +24,16 @@ int main (void)
      DIR *dirptr;
      FILE *fiddb, *fidtemp;
      char *fname = (char *)malloc(FNAME_LEN);
+     char *t = (char *)malloc(DUMMY_SIZE);
+     char *strtemp, *checkStr;
      char dummy[DUMMY_SIZE], l1[BIG_SIZE], l2[BIG_SIZE], l3[BIG_SIZE], t1[SMALL_SIZE], t2[SMALL_SIZE];
      char path[PATH_SIZE];
      int fcnt = 0;
      int fileIDtemp, basetemp, lentemp;
-     char *strtemp, *checkStr;
      bool mainSuccess = true, tempSuccess;
 
      // Database
      fiddb = fopen("nums.db", "r");
-     char *t = (char *)malloc(DUMMY_SIZE);
 
      struct dirent *entry;     
      dirptr = opendir ("./num/");
@@ -83,7 +83,7 @@ int main (void)
                     (void)fclose(fidtemp);
                     printf("\n\n----------\n\n");
                     fcnt++;
-                    usleep((unsigned int)(1<<20));
+                    usleep((unsigned int)(1<<18));
                }
           }
                
@@ -248,8 +248,5 @@ void processStr(char l1[], char l2[], char l3[], int len, char **processed){
                else *(proctemp + i) = '?';
 
      }
-
      *processed = proctemp;
-     
-
 }
